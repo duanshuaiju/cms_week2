@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bawei.dao.GoodsDao">
+	<select id="list" resultType="goods">
+		select * from week2
+		<where>
+			<if test="id!=null and id!=''">
+				id like concat("%",#{id},"%")
+			</if>
+			<if test="gjz!=null and gjz!=''">
+				and gjz like concat("%",#{gjz},"%")
+			</if>
+			<if test="dz!=null and dz!=''">
+				and dz like concat("%",#{dz},"%")
+			</if>
+			<if test="ms!=null and ms!=''">
+				and ms like concat("%",#{ms},"%")
+			</if>
+			<if test="gsmc!=null and gsmc!=''">
+				and gsmc like concat("%",#{gsmc},"%")
+			</if>
+			<if test="zycp!=null and zycp!=''">
+				and ztcp like concat("%",#{zycp},"%")
+			</if>
+			<if test="z1!=null and z1!=''">
+				and zczb>=#{z1}
+			</if>
+			<if test="z2!=null and z2!=''">
+				and zczb &lt;=#{z2}
+			</if>
+			<if test="d1!=null and d1!=''">
+				and clsj>=#{d1}
+			</if>
+			<if test="d2!=null and d2!=''">
+				and clsj &lt;=#{d2}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="add">
+		insert into week2 values
+		<foreach collection="goods" item="s" separator=",">
+			(#{s.id},#{s.gjz},#{s.ms},#{s.gsmc},#{s.ztcp},#{s.dz},#{s.zczb},#{s.rq},null,null)
+		</foreach>
+	</insert>
+</mapper>
